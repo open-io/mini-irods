@@ -1,0 +1,26 @@
+---
+version: '2'
+services:
+  sql:
+    image: postgres:9.6
+  irods:
+    image: mini-irods
+    depends_on:
+      - sql
+      - openioci
+    ports:
+      - "1247:1248"
+      - "20000:20999"
+  openioci:
+    image: openioci/runtime
+    networks:
+      default:
+        ipv4_address: 172.24.0.100
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.24.0.0/16
