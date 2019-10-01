@@ -15,7 +15,10 @@ RUN \
     apt-get update && \
     apt-get install -y irods-server irods-database-plugin-postgres
 
-COPY create.sql config.json docker-entrypoint.sh start.sh /
+RUN useradd -ms /bin/bash alice
+RUN useradd -ms /bin/bash bobby
+
+COPY create.sql config.json docker-entrypoint.sh start.sh login-irods.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
