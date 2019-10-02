@@ -18,7 +18,7 @@ RUN \
 RUN useradd -ms /bin/bash alice && \
     useradd -ms /bin/bash bobby
 
-COPY create.sql config.json docker-entrypoint.sh start.sh login-irods.sh test.sh /
+COPY create.sql config.json docker-entrypoint.sh start.sh login-irods.sh test.sh wait.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

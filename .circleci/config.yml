@@ -10,6 +10,9 @@ jobs:
       - run:
           name: build iRods container
           command: make build_irods
+      - run:
+          name: run test
+          command: make test_irods
 
 workflows:
   version: 2
