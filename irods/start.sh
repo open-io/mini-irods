@@ -19,11 +19,17 @@ for U in alice bobby; do
     su - $U -c "/login-irods.sh $U password"
 done
 
-aws --endpoint-url http://172.24.0.100:5000 s3api create-bucket --bucket test
+export AWS_ACCESS_KEY_ID=demo:demo
+export AWS_SECRET_ACCESS_KEY=DEMO_PASS
+export AWS_DEFAULT_REGION=us-east-1
+aws --endpoint-url http://172.24.0.100:5000 s3api create-bucket --bucket test || (
+    echo "Bucket creation has failed"
+    exit 1
+)
 
 cat <<EOF >/s3.keypair
-demo:demo
-DEMO_PASS
+$AWS_ACCESS_KEY_ID
+$AWS_SECRET_ACCESS_KEY
 EOF
 
 ARGS="S3_DEFAULT_HOSTNAME=172.24.0.100:5000;S3_AUTH_FILE=/s3.keypair;S3_RETRY_COUNT=1;S3_WAIT_TIME_SEC=5;S3_PROTO=HTTP"

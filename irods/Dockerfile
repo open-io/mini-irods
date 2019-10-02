@@ -18,10 +18,7 @@ RUN \
 RUN useradd -ms /bin/bash alice && \
     useradd -ms /bin/bash bobby
 
-COPY create.sql config.json docker-entrypoint.sh start.sh login-irods.sh /
-
-COPY aws_credentials /root/.aws/credentials
-COPY aws_config /root/.aws/config
+COPY create.sql config.json docker-entrypoint.sh start.sh login-irods.sh test.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
